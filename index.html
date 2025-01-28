@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced YouTube Video Player</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background: #6200ea;
+            color: #fff;
+            padding: 20px 10px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 10px;
+        }
+        .input-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+        .input-group input {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .input-group button {
+            padding: 10px 20px;
+            background: #6200ea;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .input-group button:hover {
+            background: #4e00b4;
+        }
+        .video-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        .video-container iframe {
+            width: 100%;
+            height: 200px;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background: #6200ea;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>YouTube Video Player</h1>
+        <p>Add up to 50 videos and play them all in one place!
+        growing your 4k watch time</p>
+    </header>
+
+    <div class="container">
+        <div class="input-group">
+            <input type="text" id="video-link" placeholder="Enter YouTube video link here...">
+            <button onclick="addVideo()">Add Video</button>
+        </div>
+        <div class="video-container" id="video-container">
+            <!-- Videos will appear here -->
+        </div>
+    </div>
+
+    <footer>
+        <p>Developed by Telegram API | All Rights Reserved</p>
+    </footer>
+
+    <script>
+        const MAX_VIDEOS = 50;
+
+        function addVideo() {
+            const videoContainer = document.getElementById("video-container");
+            const videoLink = document.getElementById("video-link").value.trim();
+
+            if (!videoLink) {
+                alert("Please enter a YouTube video link.");
+                return;
+            }
+
+            if (videoContainer.children.length >= MAX_VIDEOS) {
+                alert("You can only add up to 50 videos.");
+                return;
+            }
+
+            let videoId;
+
+            // Extract video ID from different YouTube link formats
+            if (videoLink.includes("youtu.be/")) {
+                videoId = videoLink.split("youtu.be/")[1];
+            } else if (videoLink.includes("youtube.com/watch?v=")) {
+                videoId = videoLink.split("v=")[1]?.split("&")[0];
+            } else {
+                alert("Invalid YouTube link. Please try again.");
+                return;
+            }
+
+            if (!videoId) {
+                alert("Could not extract video ID. Please check the link.");
+                return;
+            }
+
+            // Create iframe element for the video
+            const iframe = document.createElement("iframe");
+            iframe.src = `https://www.youtube.com/embed/${videoId}`;
+            iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+            iframe.allowFullscreen = true;
+
+            // Add the iframe to the video container
+            videoContainer.appendChild(iframe);
+
+            // Clear the input field
+            document.getElementById("video-link").value = "";
+        }
+    </script>
+</body>
+</html>
