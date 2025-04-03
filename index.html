@@ -121,7 +121,6 @@
 
 <p id="videoCounter">Videos Added: 0 / 50</p>
 
-<!-- Scroll Down বাটন সবসময় উপরে থাকবে -->
 <div class="scroll-buttons">
     <button onclick="scrollToBottom()">⬇ Scroll Down</button>
 </div>
@@ -129,10 +128,8 @@
 <p id="message" style="color: red;"></p>
 
 <div class="video-container" id="videoContainer">
-    <!-- Videos will be added here -->
 </div>
 
-<!-- Scroll Up বাটন প্রথমে লুকানো থাকবে, ভিডিও যোগ করলে দেখাবে -->
 <div class="scroll-buttons">
     <button id="scrollUpBtn" onclick="scrollToTop()">⬆ Scroll Up</button>
 </div>
@@ -176,18 +173,15 @@
             return;
         }
 
-        // Create a div for the video
         const videoDiv = document.createElement("div");
         videoDiv.className = "video";
 
-        // Create iframe element for the video (144p Resolution)
         const iframe = document.createElement("iframe");
         iframe.src = `https://www.youtube.com/embed/${videoId}?rel=0&playsinline=1&vq=tiny&controls=1`;
         iframe.allow = "accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
         iframe.allowFullscreen = true;
         iframe.id = `player-${videoId}`;
 
-        // Create remove button
         const removeBtn = document.createElement("button");
         removeBtn.className = "remove-btn";
         removeBtn.innerText = "X";
@@ -200,45 +194,17 @@
             }
         };
 
-        // Append iframe and remove button to the div
         videoDiv.appendChild(iframe);
         videoDiv.appendChild(removeBtn);
-
-        // Add the video div to the video container
         videoContainer.appendChild(videoDiv);
-
-        // Show Scroll Up button
         scrollUpBtn.style.display = "block";
-
-        // Increment video count and update counter
         videoCount++;
         updateVideoCounter();
-
-        // Clear the input field
         document.getElementById("videoLink").value = "";
 
-        // Show ads after every 4 videos
         if (videoCount % 4 === 0) {
-            showMonetagAd();
+            show_9168633('pop').then(() => {}).catch(e => {});
         }
-    }
-
-    function updateVideoCounter() {
-        document.getElementById("videoCounter").textContent = `Videos Added: ${videoCount} / ${MAX_VIDEOS}`;
-    }
-
-    function showMonetagAd() {
-        if (window.show_8872864) {
-            show_8872864();
-        }
-    }
-
-    function scrollToTop() {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    function scrollToBottom() {
-        window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
     }
 </script>
 
