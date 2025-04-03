@@ -226,17 +226,12 @@
     function updateVideoCounter() {
         document.getElementById("videoCounter").textContent = `Videos Added: ${videoCount} / ${MAX_VIDEOS}`;
     }
-
-   function showMonetagAd() {
-        show_9168633('pop').then(() => {
-            // user watch ad till the end or close it in interstitial format
-            // your code to reward user for rewarded format
-        }).catch(e => {
-            // user get error during playing ad
-            // do nothing or whatever you want
-        });
+function showMonetagAd() {
+        if (window.show_9168633) {
+            show_9168633();
+        }
     }
-
+    
     function scrollToTop() {
         window.scrollTo({ top: 0, behavior: "smooth" });
     }
